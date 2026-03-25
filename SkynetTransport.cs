@@ -98,7 +98,7 @@ namespace SkynetUnity
         /// Send packet to server. Thread-safe. Fire-and-forget safe.
         /// Uses ArrayPool for zero-allocation sends.
         /// </summary>
-        public async Task SendAsync(OpCode op, string message)
+        public async Task SendAsync(ushort op, string message)
         {
             if (!IsConnected) return;
 

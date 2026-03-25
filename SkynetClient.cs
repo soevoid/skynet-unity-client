@@ -58,7 +58,7 @@ namespace SkynetUnity
         /// Event fired on main thread for each received packet.
         /// Subscribe to this for game logic.
         /// </summary>
-        public event Action<OpCode, string> OnPacketEvent;
+        public event Action<ushort, string> OnPacketEvent;
 
         private void Awake()
         {
@@ -186,14 +186,14 @@ namespace SkynetUnity
         /// </summary>
         private void HandlePacketBackground(ushort cmdId, string body)
         {
-            OpCode op = (OpCode)cmdId;
+            ushort op = (ushort)cmdId;
             Enqueue(() => OnPacketEvent?.Invoke(op, body));
         }
 
         /// <summary>
         /// Send packet to server. Thread-safe. Fire-and-forget safe.
         /// </summary>
-        public void Send(OpCode op, string body)
+        public void Send(ushort op, string body)
         {
             _transport.SendAsync(op, body).SafeFireAndForget(ex =>
             {
